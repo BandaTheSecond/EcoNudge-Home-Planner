@@ -1,153 +1,66 @@
-import React, { useState } from 'react';
-import '../styles/planner.css';
+import React, { useEffect, useState } from "react";
+import { getWeekPlan, savePlan } from "../api";
 
-const Planner = ({ onNavigate }) => {
-  const [weeklyTasks, setWeeklyTasks] = useState({
-    Mon: [
-      { id: 1, text: 'Turn off lights', completed: true },
-      { id: 2, text: 'Shorter shower', completed: true }
-    ],
-    Tue: [
-      { id: 3, text: 'Unplug devices', completed: false }
-    ],
-    Wed: [],
-    Thu: [],
-    Fri: [],
-    Sat: [],
-    Sun: []
-  });
+const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
-  const [newTask, setNewTask] = useState({
-    day: 'Mon',
-    text: ''
-  });
+export default function Planner() {
+  const [tasks, setTasks] = useState([]);
+  const [saved, setSaved] = useState(false);
 
-  const toggleTaskCompletion = (day, taskId) => {
-    setWeeklyTasks(prev => ({
-      ...prev,
-      [day]: prev[day].map(task => 
-        task.id === taskId ? { ...task, completed: !task.completed } : task
-      )
-    }));
-  };
+  useEffect(() => {
+    getWeekPlan(1).then((data) => setTasks(data.tasks || []));
+  }, []);
 
-  const addNewTask = () => {
-    if (newTask.text.trim() === '') return;
-    
-    const taskId = Date.now();
-    const newTaskObj = {
-      id: taskId,
-      text: newTask.text,
-      completed: false
-    };
+  function toggle(dayIndex, taskIndex) {
+    setSaved(false);
+    setTasks((prev) => {
+      const copy = [...prev];
+      const row = { ...copy[taskIndex] };
+      const checks = [...row.dayChecks];
+      checks[dayIndex] = !checks[dayIndex];
+      row.dayChecks = checks;
+      copy[taskIndex] = row;
+      return copy;
+    });
+  }
 
-    setWeeklyTasks(prev => ({
-      ...prev,
-      [newTask.day]: [...prev[newTask.day], newTaskObj]
-    }));
-
-    setNewTask({ ...newTask, text: '' });
-  };
-
-  const removeTask = (day, taskId) => {
-    setWeeklyTasks(prev => ({
-      ...prev,
-      [day]: prev[day].filter(task => task.id !== taskId)
-    }));
-  };
-
-  const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  async function onSave() {
+    const payload = tasks.map((t) => ({ id: t.id, dayChecks: t.dayChecks }));
+    await savePlan(payload, 1);
+    setSaved(true);
+  }
 
   return (
-    <div className="planner">
-      <header className="planner-header">
-        <h1>EcoNudge</h1>
-        <h2>Planner</h2>
-      </header>
+    <div className="p">
+      <h1>Weekly Planner</h1>
 
-      <nav className="navigation">
-        <button 
-          className="nav-btn"
-          onClick={() => onNavigate('dashboard')}
-        >
-          Dashboard
-        </button>
-        <button className="nav-btn active">
-          Planner
-        </button>
-        <button className="nav-btn">
-          Reports
-        </button>
-        <button className="nav-btn">
-          Rewards
-        </button>
-        <button className="nav-btn">
-          Settings
-        </button>
-      </nav>
-
-      <div className="planner-content">
-        <div className="add-task-section">
-          <h3>Add New Task</h3>
-          <div className="add-task-form">
-            <select 
-              value={newTask.day}
-              onChange={(e) => setNewTask({...newTask, day: e.target.value})}
-            >
-              {days.map(day => (
-                <option key={day} value={day}>{day}</option>
-              ))}
-            </select>
-            <input 
-              type="text"
-              placeholder="Enter a sustainability task..."
-              value={newTask.text}
-              onChange={(e) => setNewTask({...newTask, text: e.target.value})}
-              onKeyPress={(e) => e.key === 'Enter' && addNewTask()}
-            />
-            <button onClick={addNewTask}>Add Task</button>
-          </div>
+      <div className="table">
+        <div className="t-head row">
+          <div className="cell head">Action</div>
+          {DAYS.map((d) => (
+            <div key={d} className="cell head">{d}</div>
+          ))}
         </div>
 
-        <div className="weekly-planner">
-          <h3>Weekly Planner</h3>
-          <div className="planner-grid">
-            {days.map(day => (
-              <div key={day} className="planner-day">
-                <div className="day-header">{day}</div>
-                <div className="day-tasks">
-                  {weeklyTasks[day].map(task => (
-                    <div 
-                      key={task.id} 
-                      className={`task-item ${task.completed ? 'completed' : ''}`}
-                    >
-                      <span 
-                        className="task-checkbox"
-                        onClick={() => toggleTaskCompletion(day, task.id)}
-                      >
-                        {task.completed ? '✔' : '○'}
-                      </span>
-                      <span className="task-text">{task.text}</span>
-                      <button 
-                        className="remove-task"
-                        onClick={() => removeTask(day, task.id)}
-                        aria-label="Remove task"
-                      >
-                        ×
-                      </button>
-                    </div>
-                  ))}
-                  {weeklyTasks[day].length === 0 && (
-                    <div className="empty-task">No tasks</div>
-                  )}
-                </div>
+        {tasks.map((t, r) => (
+          <div key={t.id} className="row">
+            <div className="cell">
+              <div className="bold">{t.label}</div>
+              <div className="muted">~{t.estimated_kwh?.toFixed(1) ?? 0.5} kWh</div>
+            </div>
+            {t.dayChecks.map((checked, c) => (
+              <div key={c} className="cell center">
+                <input type="checkbox" checked={checked} onChange={() => toggle(c, r)} />
               </div>
             ))}
           </div>
-        </div>
+        ))}
+      </div>
+
+      <div className="row mt">
+        <button className="btn primary" onClick={onSave}>Save Plan</button>
+        {saved && <span className="muted">Saved ✓</span>}
       </div>
     </div>
   );
-};
-
-export default Planner;
+}
