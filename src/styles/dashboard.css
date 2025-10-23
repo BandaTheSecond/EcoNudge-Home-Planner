@@ -1,0 +1,280 @@
+.dashboard {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+  color: #2e7d32;
+  font-size: 2.5rem;
+  margin-bottom: 5px;
+}
+
+.dashboard-header h2 {
+  color: #555;
+  font-size: 1.5rem;
+  font-weight: normal;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 12px 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-btn.active {
+  background-color: #4caf50;
+  color: white;
+  font-weight: bold;
+}
+
+.nav-btn:hover:not(.active) {
+  background-color: #f0f0f0;
+}
+
+.dashboard-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.todays-nudge, .progress-section, .weekly-planner {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.weekly-planner {
+  grid-column: 1 / -1;
+}
+
+.todays-nudge h3, .progress-section h3, .weekly-planner h3 {
+  margin-top: 0;
+  color: #2e7d32;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.nudge-card {
+  background-color: #e8f5e9;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 15px;
+}
+
+.nudge-card h4 {
+  margin: 0 0 10px 0;
+  color: #1b5e20;
+}
+
+.nudge-card p {
+  margin: 0 0 15px 0;
+  color: #555;
+}
+
+.nudge-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.accept-btn, .dismiss-btn {
+  flex: 1;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.accept-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.accept-btn:hover:not(:disabled) {
+  background-color: #3d8b40;
+}
+
+.accept-btn:disabled, .accept-btn.accepted {
+  background-color: #a5d6a7;
+  cursor: not-allowed;
+}
+
+.dismiss-btn {
+  background-color: #f5f5f5;
+  color: #555;
+}
+
+.dismiss-btn:hover:not(:disabled) {
+  background-color: #e0e0e0;
+}
+
+.dismiss-btn:disabled, .dismiss-btn.dismissed {
+  background-color: #e0e0e0;
+  cursor: not-allowed;
+}
+
+.progress-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 15px;
+}
+
+.progress-circle {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(#4caf50 0% 68%, #e0e0e0 68% 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-circle::before {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background-color: white;
+  border-radius: 50%;
+}
+
+.progress-text {
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2e7d32;
+  z-index: 1;
+}
+
+.progress-label {
+  position: absolute;
+  bottom: -20px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.co2-saved {
+  text-align: center;
+}
+
+.co2-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.co2-label {
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 5px;
+}
+
+.planner-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.planner-day {
+  text-align: center;
+}
+
+.day-name {
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #2e7d32;
+}
+
+.task {
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 10px 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.task.empty {
+  cursor: default;
+  background-color: #fafafa;
+}
+
+.task:hover:not(.empty) {
+  background-color: #e0e0e0;
+}
+
+.task.completed {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.checkmark {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .planner-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .navigation {
+    flex-wrap: wrap;
+  }
+  
+  .nav-btn {
+    flex: 1 0 45%;
+    margin: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .planner-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .nav-btn {
+    flex: 1 0 100%;
+  }
+  
+  .dashboard {
+    padding: 10px;
+  }
+}
