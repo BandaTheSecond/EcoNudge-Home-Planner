@@ -1,41 +1,56 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request, jsonify
 from app import db
 from app.models.reward import Reward
+from app.schemas.reward_schema import RewardSchema
 
-reward_bp = Blueprint("reward_bp", __name__)
+reward_bp = Blueprint("reward_bp", __name__, url_prefix="/rewards")
 
-# ✅ Get all rewards
+reward_schema = RewardSchema()
+rewards_schema = RewardSchema(many=True)
+
+# Get all rewards
 @reward_bp.route("/", methods=["GET"])
 def get_rewards():
     rewards = Reward.query.all()
-    return jsonify([
-        {"id": r.id, "title": r.title, "points": r.points, "user_id": r.user_id}
-        for r in rewards
-    ])
+    return rewards_schema.jsonify(rewards), 200
 
-# ✅ Create a reward
+# Get one reward
+@reward_bp.route("/<int:id>", methods=["GET"])
+def get_reward(id):
+    reward = Reward.query.get_or_404(id)
+    return reward_schema.jsonify(reward), 200
+
+# Create reward
 @reward_bp.route("/", methods=["POST"])
 def create_reward():
     data = request.get_json()
-    new_reward = Reward(title=data["title"], points=data["points"], user_id=data.get("user_id"))
+    new_reward = Reward(
+        title=data.get("title"),
+        points=data.get("points"),
+        description=data.get("description"),
+        user_id=data.get("user_id"),
+    )
     db.session.add(new_reward)
     db.session.commit()
-    return jsonify({"message": "Reward created successfully"}), 201
+    return reward_schema.jsonify(new_reward), 201
 
-# ✅ Update reward details
+# Update reward
 @reward_bp.route("/<int:id>", methods=["PATCH"])
 def update_reward(id):
     reward = Reward.query.get_or_404(id)
     data = request.get_json()
-    reward.title = data.get("title", reward.title)
-    reward.points = data.get("points", reward.points)
-    db.session.commit()
-    return jsonify({"message": "Reward updated successfully"})
 
-# ✅ Delete reward
+    for field in ["title", "points", "description"]:
+        if field in data:
+            setattr(reward, field, data[field])
+
+    db.session.commit()
+    return reward_schema.jsonify(reward), 200
+
+# Delete reward
 @reward_bp.route("/<int:id>", methods=["DELETE"])
 def delete_reward(id):
     reward = Reward.query.get_or_404(id)
     db.session.delete(reward)
     db.session.commit()
-    return jsonify({"message": "Reward deleted successfully"})
+    return jsonify({"message": "Reward deleted successfully"}), 200

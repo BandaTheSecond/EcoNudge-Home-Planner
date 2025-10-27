@@ -1,41 +1,57 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, request, jsonify
 from app import db
 from app.models.planner import Planner
+from app.schemas.planner_schema import PlannerSchema
 
-planner_bp = Blueprint("planner_bp", __name__)
+planner_bp = Blueprint("planner_bp", __name__, url_prefix="/planner")
 
-# ✅ Get all planner goals
+planner_schema = PlannerSchema()
+planners_schema = PlannerSchema(many=True)
+
+#  Get all plans
 @planner_bp.route("/", methods=["GET"])
-def get_all_goals():
-    goals = Planner.query.all()
-    return jsonify([
-        {"id": g.id, "goal": g.goal, "completed": g.completed, "user_id": g.user_id}
-        for g in goals
-    ])
+def get_all_planners():
+    planners = Planner.query.all()
+    return planners_schema.jsonify(planners), 200
 
-# ✅ Create a new goal
+#  Get one plan
+@planner_bp.route("/<int:id>", methods=["GET"])
+def get_planner(id):
+    planner = Planner.query.get_or_404(id)
+    return planner_schema.jsonify(planner), 200
+
+# Create plan
 @planner_bp.route("/", methods=["POST"])
-def create_goal():
+def create_planner():
     data = request.get_json()
-    new_goal = Planner(goal=data["goal"], completed=data.get("completed", False), user_id=data.get("user_id"))
-    db.session.add(new_goal)
+    new_planner = Planner(
+        title=data.get("title"),
+        description=data.get("description"),
+        target_date=data.get("target_date"),
+        progress=data.get("progress", 0),
+        user_id=data.get("user_id"),
+    )
+    db.session.add(new_planner)
     db.session.commit()
-    return jsonify({"message": "Goal created successfully"}), 201
+    return planner_schema.jsonify(new_planner), 201
 
-# ✅ Update goal completion or text
+#  Update plan
 @planner_bp.route("/<int:id>", methods=["PATCH"])
-def update_goal(id):
-    goal = Planner.query.get_or_404(id)
+def update_planner(id):
+    planner = Planner.query.get_or_404(id)
     data = request.get_json()
-    goal.goal = data.get("goal", goal.goal)
-    goal.completed = data.get("completed", goal.completed)
-    db.session.commit()
-    return jsonify({"message": "Goal updated successfully"})
 
-# ✅ Delete goal
-@planner_bp.route("/<int:id>", methods=["DELETE"])
-def delete_goal(id):
-    goal = Planner.query.get_or_404(id)
-    db.session.delete(goal)
+    for field in ["title", "description", "target_date", "progress"]:
+        if field in data:
+            setattr(planner, field, data[field])
+
     db.session.commit()
-    return jsonify({"message": "Goal deleted successfully"})
+    return planner_schema.jsonify(planner), 200
+
+#  Delete plan
+@planner_bp.route("/<int:id>", methods=["DELETE"])
+def delete_planner(id):
+    planner = Planner.query.get_or_404(id)
+    db.session.delete(planner)
+    db.session.commit()
+    return jsonify({"message": "Planner deleted successfully"}), 200
