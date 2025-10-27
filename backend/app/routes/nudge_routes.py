@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from app import db
-from app.models.nudge import Nudge
+from app.models.nudges import Nudge
 from app.schemas.nudge_schema import NudgeSchema
 
 nudge_bp = Blueprint("nudge_bp", __name__, url_prefix="/nudges")

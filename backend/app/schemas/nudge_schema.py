@@ -1,5 +1,5 @@
 from app.schemas import ma
-from app.models.nudge import Nudge
+from app.models.nudges import Nudge
 
 class NudgeSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

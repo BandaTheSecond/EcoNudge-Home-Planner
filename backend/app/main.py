@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
-from app.models import user, nudge, planner, reward, report
+from app.models import User, Nudge, Planner, Reward, Report
 from app.schemas import ma
 from app.utils.error_handlers import register_error_handlers
 from app import db
