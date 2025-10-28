@@ -1,6 +1,15 @@
-const API_BASE_URL = "https://econudge-api.onrender.com/api";
+const BASE_URL = "http://localhost:5555/api";
 
-export async function fetchData(endpoint) {
-  const res = await fetch(`${API_BASE_URL}/${endpoint}`);
+export async function getNudges() {
+  const res = await fetch(`${BASE_URL}/nudges/`);
+  return res.json();
+}
+
+export async function addUser(user) {
+  const res = await fetch(`${BASE_URL}/users/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(user)
+  });
   return res.json();
 }
