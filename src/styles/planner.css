@@ -1,236 +1,88 @@
-.planner {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-  min-height: 100vh;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
-.planner-header {
-  text-align: center;
-  margin-bottom: 20px;
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-.planner-header h1 {
-  color: #2e7d32;
-  font-size: 2.5rem;
-  margin-bottom: 5px;
+h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
 }
 
-.planner-header h2 {
-  color: #555;
-  font-size: 1.5rem;
-  font-weight: normal;
+h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
 }
 
-.navigation {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 30px;
-  background-color: white;
-  border-radius: 10px;
-  padding: 5px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.menu {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.nav-btn {
-  flex: 1;
-  padding: 12px 5px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 1rem;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 16px;
 }
 
-.nav-btn.active {
-  background-color: #4caf50;
-  color: white;
-  font-weight: bold;
+.menu-item input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
 }
 
-.nav-btn:hover:not(.active) {
-  background-color: #f0f0f0;
+hr {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
 }
 
-.planner-content {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+.weekly-planner {
+    background-color: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.add-task-section {
-  margin-bottom: 30px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
-}
-
-.add-task-section h3 {
-  margin-top: 0;
-  color: #2e7d32;
-}
-
-.add-task-form {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-
-.add-task-form select,
-.add-task-form input {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-}
-
-.add-task-form input {
-  flex: 1;
-}
-
-.add-task-form button {
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
-}
-
-.add-task-form button:hover {
-  background-color: #3d8b40;
-}
-
-.weekly-planner h3 {
-  margin-top: 0;
-  color: #2e7d32;
-}
-
-.planner-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 15px;
-  margin-top: 15px;
-}
-
-.planner-day {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.day-header {
-  background-color: #4caf50;
-  color: white;
-  text-align: center;
-  padding: 10px 5px;
-  font-weight: bold;
-}
-
-.day-tasks {
-  padding: 10px;
-  min-height: 150px;
-}
-
-.task-item {
-  display: flex;
-  align-items: center;
-  padding: 8px 5px;
-  margin-bottom: 8px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  transition: background-color 0.3s;
-}
-
-.task-item.completed {
-  background-color: #e8f5e9;
-}
-
-.task-checkbox {
-  margin-right: 8px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  color: #4caf50;
-  min-width: 20px;
-}
-
-.task-text {
-  flex: 1;
-  font-size: 0.9rem;
-  text-align: left;
-}
-
-.task-item.completed .task-text {
-  text-decoration: line-through;
-  color: #777;
-}
-
-.remove-task {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #f44336;
-  font-size: 1.2rem;
-  padding: 0;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.3s;
-}
-
-.remove-task:hover {
-  color: #d32f2f;
-}
-
-.empty-task {
-  text-align: center;
-  color: #999;
-  font-style: italic;
-  padding: 20px 0;
-}
-
-@media (max-width: 768px) {
-  .planner-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  
-  .navigation {
-    flex-wrap: wrap;
-  }
-  
-  .nav-btn {
-    flex: 1 0 45%;
-    margin: 5px;
-  }
-  
-  .add-task-form {
-    flex-direction: column;
-  }
-  
-  .add-task-form select,
-  .add-task-form input,
-  .add-task-form button {
+.planner-table {
     width: 100%;
-  }
+    border-collapse: collapse;
+    margin-top: 15px;
 }
 
-@media (max-width: 480px) {
-  .planner-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .nav-btn {
-    flex: 1 0 100%;
-  }
-  
-  .planner {
-    padding: 10px;
-  }
+.planner-table th {
+    text-align: left;
+    padding: 8px 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+}
+
+.planner-table td {
+    padding: 8px 4px;
+    font-size: 14px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.checkmark {
+    color: #4CAF50;
+    font-size: 16px;
+    margin-right: 5px;
 }
