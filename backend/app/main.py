@@ -29,11 +29,11 @@ def create_app():
     CORS(app)
 
     # --- Register Blueprints ---
-    app.register_blueprint(user_bp)
-    app.register_blueprint(nudge_bp)
-    app.register_blueprint(planner_bp)
-    app.register_blueprint(reward_bp)
-    app.register_blueprint(report_bp)
+    app.register_blueprint(user_bp, url_prefix="/api/users")
+    app.register_blueprint(nudge_bp, url_prefix="/api/nudges")
+    app.register_blueprint(planner_bp, url_prefix="/api/planner")
+    app.register_blueprint(reward_bp, url_prefix="/api/rewards")
+    app.register_blueprint(report_bp, url_prefix="/api/reports")
 
     # --- Error Handlers ---
     register_error_handlers(app)
