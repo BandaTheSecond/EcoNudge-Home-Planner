@@ -1,23 +1,22 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { AppProvider } from "./context/AppContext";
+import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Dashboard from "./pages/Dashboard";
-import Planner from "./pages/Planner";
-import Reports from "./pages/Reports";
-import Rewards from "./pages/Rewards";
+import Sidebar from "./components/Sidebar";
+import Footer from "./components/Footer";
+import AppProvider from "./context/AppProvider";
 
 export default function App() {
   return (
     <AppProvider>
-      <Router>
+      <div className="app-shell">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/planner" element={<Planner />} />
-          <Route path="/reports" element={<Reports />} />
-          <Route path="/rewards" element={<Rewards />} />
-        </Routes>
-      </Router>
+        <div className="main-area">
+          <Sidebar />
+          <main className="content">
+            <Outlet />
+          </main>
+        </div>
+        <Footer />
+      </div>
     </AppProvider>
   );
 }

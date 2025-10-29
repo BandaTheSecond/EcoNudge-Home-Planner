@@ -1,25 +1,32 @@
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5555";
-
-export const getPlannerTasks = async () => {
-  const res = await fetch(`${API_URL}/api/planner/`);
+const json = (res) => {
+  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.json();
 };
 
-export const createPlannerTask = async (task) => {
-  const res = await fetch(`${API_URL}/api/planner/`, {
+// NUDGES
+export const getNudges = () => fetch(`/api/nudges/`).then(json);
+
+// PLANNER
+export const getTasks = () => fetch(`/api/planner/`).then(json);
+export const addTask = (task) =>
+  fetch(`/api/planner/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(task),
-  });
-  return res.json();
-};
+    body: JSON.stringify(task)
+  }).then(json);
 
-export const getReports = async () => {
-  const res = await fetch(`${API_URL}/api/reports/`);
-  return res.json();
-};
+export const toggleTask = (id, completed) =>
+  fetch(`/api/planner/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ completed })
+  }).then(json);
 
-export const getRandomReward = async () => {
-  const res = await fetch(`${API_URL}/api/rewards/random`);
-  return res.json();
-};
+export const deleteTask = (id) =>
+  fetch(`/api/planner/${id}`, { method: "DELETE" }).then(json);
+
+// REWARDS
+export const getRewards = () => fetch(`/api/rewards/`).then(json);
+
+// REPORTS
+export const getReports = () => fetch(`/api/reports/`).then(json);
