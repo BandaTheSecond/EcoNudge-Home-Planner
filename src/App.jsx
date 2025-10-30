@@ -7,11 +7,11 @@ import AppProvider from "./context/AppProvider";
 export default function App() {
   return (
     <AppProvider>
-      <div className="app-shell">
+      <div className="min-h-screen bg-gray-100 flex flex-col">
         <Navbar />
-        <div className="main-area">
+        <div className="flex flex-1">
           <Sidebar />
-          <main className="content">
+          <main className="flex-1 p-6">
             <Outlet />
           </main>
         </div>

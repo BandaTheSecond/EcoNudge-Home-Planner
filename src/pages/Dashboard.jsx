@@ -22,30 +22,48 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="stack">
-      <div className="grid-2">
+    <div className="space-y-8">
+      <h1 className="text-3xl font-bold text-gray-800">Dashboard</h1>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <ChartCard title="Weekly Eco Actions" data={completion} />
-        <div className="card">
-          <h3 className="card-title">Quick Stats</h3>
-          <ul className="list">
-            <li>Tasks total: {tasks.length}</li>
-            <li>Completed: {tasks.filter(t => t.completed).length}</li>
-            <li>Nudges available: {nudges.length}</li>
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h3 className="text-xl font-semibold mb-4 text-gray-800">Quick Stats</h3>
+          <ul className="space-y-2 text-gray-700">
+            <li className="flex justify-between">
+              <span>Tasks total:</span>
+              <span className="font-semibold">{tasks.length}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Completed:</span>
+              <span className="font-semibold text-green-600">{tasks.filter(t => t.completed).length}</span>
+            </li>
+            <li className="flex justify-between">
+              <span>Nudges available:</span>
+              <span className="font-semibold">{nudges.length}</span>
+            </li>
             {weather && (
-              <>
-                <li>Weather: {weather.city} - {weather.temperature}°C, {weather.description}</li>
-              </>
+              <li className="flex justify-between">
+                <span>Weather:</span>
+                <span className="font-semibold">{weather.city} - {weather.temperature}°C, {weather.description}</span>
+              </li>
             )}
           </ul>
         </div>
       </div>
 
-      <h2 className="section-title">Nudges</h2>
-      <div className="grid-3">
-        {nudges.map(n => (
-          <NudgeCard key={n.id} title={n.title} description={n.message} category={n.category} />
-        ))}
-        {nudges.length === 0 && <div className="muted">No nudges yet.</div>}
+      <div>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Nudges</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {nudges.map(n => (
+            <NudgeCard key={n.id} title={n.title} description={n.message} category={n.category} />
+          ))}
+          {nudges.length === 0 && (
+            <div className="col-span-full text-center py-8 text-gray-500">
+              No nudges yet.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
