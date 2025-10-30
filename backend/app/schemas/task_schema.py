@@ -1,9 +1,9 @@
 from app.schemas import ma
-from app.models.reward import Reward
+from app.models.task import Task
 
-class RewardSchema(ma.SQLAlchemyAutoSchema):
+class TaskSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = Reward
+        model = Task
         load_instance = True
         include_fk = True
         include_relationships = False

@@ -6,3 +6,5 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
         model = User
         load_instance = True
         include_fk = True
+        include_relationships = False
+        exclude = ('tasks', 'rewards')

@@ -1,7 +1,7 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_migrate import Migrate
-from app.models import User, Nudge, Planner, Reward, Report
+from app.models import User, Nudge, Task, Reward, Report
 from app.schemas import ma
 from app.utils.error_handlers import register_error_handlers
 from app import db
@@ -9,9 +9,10 @@ from app import db
 # Import all blueprints
 from app.routes.user_routes import user_bp
 from app.routes.nudge_routes import nudge_bp
-from app.routes.planner_routes import planner_bp
+from app.routes.task_routes import task_bp
 from app.routes.reward_routes import reward_bp
 from app.routes.report_routes import report_bp
+from app.routes.external_routes import external_bp
 
 
 def create_app():
@@ -31,9 +32,10 @@ def create_app():
     # --- Register Blueprints ---
     app.register_blueprint(user_bp, url_prefix="/api/users")
     app.register_blueprint(nudge_bp, url_prefix="/api/nudges")
-    app.register_blueprint(planner_bp, url_prefix="/api/planner")
+    app.register_blueprint(task_bp, url_prefix="/api/planner")
     app.register_blueprint(reward_bp, url_prefix="/api/rewards")
     app.register_blueprint(report_bp, url_prefix="/api/reports")
+    app.register_blueprint(external_bp, url_prefix="/api/external")
 
     # --- Error Handlers ---
     register_error_handlers(app)

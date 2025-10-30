@@ -30,3 +30,22 @@ export const getRewards = () => fetch(`/api/rewards/`).then(json);
 
 // REPORTS
 export const getReports = () => fetch(`/api/reports/`).then(json);
+
+// EXTERNAL APIs
+export const getAINudge = (input) =>
+  fetch(`/api/external/ai-nudge`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ input })
+  }).then(json);
+
+export const getWeather = (city) => fetch(`/api/external/weather?city=${city}`).then(json);
+
+export const calculateCarbon = (data) =>
+  fetch(`/api/external/carbon`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  }).then(json);
+
+export const getEPAData = (zip) => fetch(`/api/external/epa-data?zip=${zip}`).then(json);
