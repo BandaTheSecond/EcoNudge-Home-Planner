@@ -3,6 +3,9 @@
 EcoNudge Home Planner is an interactive web app designed to help users plan, track, and improve their eco-friendly habits. It offers sustainability nudges, rewards, reports, and goal tracking through a modern, intuitive interface built with **React + Vite**.
 
 ---
+Frontend deployed link: https://eco-nudge-home-planner.vercel.app/
+
+
 
 ## 🚀 Tech Stack
 
