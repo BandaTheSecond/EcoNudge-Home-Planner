@@ -1,3 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+body {
+  background: #ffffff !important;
+  color: #111827;
+}
+
+*/  :root {   --bg: #eaeef7;   --surface: #111827;   --border: rgba(148, 163, 184, 0.12);   --radius: 1rem;   --text: #e2e8f0;   --accent: #22c55e;   --danger: #ef4444;   --warn: #f97316;   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }  *, *::before, *::after {   box-sizing: border-box;   margin: 0;   padding: 0; }  body {   min-height: 100vh;   background: radial-gradient(circle at top, #0f172a 0%, #020617 48%, #000 100%);   color: var(--text);   font-family: var(--font-sans);   line-height: 1.5; }  a {   color: inherit;   text-decoration: none; }  button {   font-family: inherit;   cursor: pointer; }  #root {   min-height: 100vh; }
+
+

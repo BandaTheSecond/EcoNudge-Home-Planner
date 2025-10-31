@@ -1,42 +1,95 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.app-shell {
+  display: flex; 
+  min-height: 100vh;
+       } 
+       
+.sidebar {  
+  width: 240px; 
+  background: hsla(216, 65%, 78%, 0.8);  
+  border-right: 1px solid rgba(148, 163, 184, 0.08);   
+  backdrop-filter: blur(12px);   
+  padding: 1.2rem 1rem;   
+  display: flex;   
+  flex-direction: column;   
+  gap: 1rem; 
+}  
+
+.sidebar .logo {  
+   font-weight: 700;   
+   margin-bottom: 1rem;   
+   letter-spacing: -0.03em;
+   }  
+
+.sidebar .nav-link {
+  display: flex;   
+  gap: 0.5rem;   
+  align-items: center;   
+  padding: 0.4rem 0.65rem;   
+  border-radius: 0.7rem;   
+  font-size: 0.78rem;   
+  color: red; 
+}  
+
+.sidebar .nav-link.active {   
+  background: rgba(160, 235, 187, 0.12);   
+  color: #fff; 
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.main-content {   
+  flex: 1;   
+  display: flex;   
+  flex-direction: column;   
+  min-height: 100vh; 
+}  
+
+.topbar {   
+  height: 56px;   
+  display: flex;   
+  align-items: center;   
+  justify-content: space-between;   
+  border-bottom: 1px solid rgba(148, 163, 184, 0.08);   
+  padding: 0 1.5rem;   
+  background: #f6f7f599;   
+  backdrop-filter: blur(12px); 
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.page {   
+  padding: 1.5rem;   
+  display: flex;   
+  flex-direction: column;   
+  gap: 1.5rem; } 
+
+   /* shared card + buttons */ 
+   .card {   
+    background: whitesmoke;   
+    border: 1px solid rgba(148, 163, 184, 0.18);   
+    border-radius: black;   
+    padding: 1rem 1.1rem;   
+    box-shadow: 0 10px 40px rgba(15, 23, 42, 0.25); 
   }
-  to {
-    transform: rotate(360deg);
-  }
+  
+.card-title {   
+  font-weight: 600;   
+  font-size: 0.95rem;   
+  margin-bottom: 0.6rem; 
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
+.btn {   
+  padding: 0.45rem 1rem;   
+  border-radius: 999px;   
+  border: 1px solid rgba(148, 163, 184, 0.25);   
+  background: rgba(15, 23, 42, 0.3);   
+  color: #fff;   
+  font-size: 0.75rem; 
+}  
 
-.card {
-  padding: 2em;
-}
+.btn.primary {   
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 96%);   
+  border: none; 
+}  
 
-.read-the-docs {
-  color: #888;
-}
+.muted {   
+  color: whitesmoke;   font-size: 0.75rem; }  .footer {   background: whitesmoke;   border-top: 1px solid black;   height: 42px;   display: flex;   align-items: center;   justify-content: flex-end;   padding: 0 1.25rem;   font-size: 0.7rem;   color: black; }  /* responsive for shell */ @media (max-width: 880px) {   .app-shell {     flex-direction: column;   }    .sidebar {     width: 100%;     flex-direction: row;     gap: 0.75rem;     overflow-x: auto;   }    .page {     padding: 1rem 0.75rem;   }    .footer {     justify-content: center;   } }
+
+
+

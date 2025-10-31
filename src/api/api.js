@@ -1,51 +1,69 @@
-const json = (res) => {
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+// ✅ Unified JSON handler with better error messages
+const json = async (res) => {
+  if (!res.ok) {
+    const message = await res.text();
+    throw new Error(`Error ${res.status}: ${res.statusText} → ${message}`);
+  }
   return res.json();
 };
 
-// NUDGES
-export const getNudges = () => fetch(`/api/nudges/`).then(json);
+// ✅ Base API URL (works for both local and deployed)
+const API = import.meta.env.VITE_API_URL || "http://localhost:5555/api";
 
-// PLANNER
-export const getTasks = () => fetch(`/api/planner/`).then(json);
+// ---------------------- NUDGES ----------------------
+export const getNudges = () => fetch(`${API}/nudges/`).then(json);
+
+// ---------------------- PLANNER ----------------------
+export const getTasks = () => fetch(`${API}/planner/`).then(json);
+
 export const addTask = (task) =>
-  fetch(`/api/planner/`, {
+  fetch(`${API}/planner/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(task)
+    body: JSON.stringify(task),
   }).then(json);
 
 export const toggleTask = (id, completed) =>
-  fetch(`/api/planner/${id}`, {
+  fetch(`${API}/planner/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ completed })
+    body: JSON.stringify({ completed }),
   }).then(json);
 
 export const deleteTask = (id) =>
-  fetch(`/api/planner/${id}`, { method: "DELETE" }).then(json);
+  fetch(`${API}/planner/${id}`, { method: "DELETE" }).then(json);
 
-// REWARDS
-export const getRewards = () => fetch(`/api/rewards/`).then(json);
+// ---------------------- REWARDS ----------------------
+export const getRewards = () => fetch(`${API}/rewards/`).then(json);
 
-// REPORTS
-export const getReports = () => fetch(`/api/reports/`).then(json);
-
-// EXTERNAL APIs
-export const getAINudge = (input) =>
-  fetch(`/api/external/ai-nudge`, {
+// 🟢 NEW: Create reward when a task is completed
+export const createReward = (reward) =>
+  fetch(`${API}/rewards/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ input })
+    body: JSON.stringify(reward),
   }).then(json);
 
-export const getWeather = (city) => fetch(`/api/external/weather?city=${city}`).then(json);
+// ---------------------- REPORTS ----------------------
+export const getReports = () => fetch(`${API}/reports/`).then(json);
+
+// ---------------------- EXTERNAL APIs ----------------------
+export const getAINudge = (input) =>
+  fetch(`${API}/external/ai-nudge`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ input }),
+  }).then(json);
+
+export const getWeather = (city) =>
+  fetch(`${API}/external/weather?city=${city}`).then(json);
 
 export const calculateCarbon = (data) =>
-  fetch(`/api/external/carbon`, {
+  fetch(`${API}/external/carbon`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+    body: JSON.stringify(data),
   }).then(json);
 
-export const getEPAData = (zip) => fetch(`/api/external/epa-data?zip=${zip}`).then(json);
+export const getEPAData = (zip) =>
+  fetch(`${API}/external/epa-data?zip=${zip}`).then(json);

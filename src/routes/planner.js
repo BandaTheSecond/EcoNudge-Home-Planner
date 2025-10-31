@@ -17,7 +17,7 @@ export const deleteTask = (id, token)        => DEL(`/planner/${id}`, token);
 export async function getWeekPlan(userId) {
     try {
     return await GET(`/planner/week${qs({ user_id: userId })}`);
-  } catch (e) {
+  } catch {
     // Fallback: synthesize a simple week plan from plain tasks
     const base = await listTasks();
     const tasks = (base || []).slice(0, 5).map((t, i) => ({
@@ -35,9 +35,8 @@ export async function getWeekPlan(userId) {
 export async function savePlan(items, userId) {
      try {
     return await POST(`/planner/week`, { user_id: userId, items });
-  } catch (e) {
+  } catch {
     // Fallback: pretend save succeeded so UI can continue
     return { ok: true, saved: true, fallback: true };
   }
-
 }

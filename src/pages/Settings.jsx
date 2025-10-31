@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useApp } from "../context/AppContext";
+import "../styles.css";
 
 export default function Settings() {
   const { user, setUser } = useApp();

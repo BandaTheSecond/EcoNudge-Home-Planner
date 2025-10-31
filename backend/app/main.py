@@ -27,7 +27,14 @@ def create_app():
     db.init_app(app)
     ma.init_app(app)
     Migrate(app, db)
-    CORS(app)
+
+    # ✅ Enable CORS for the React frontend (localhost:5173)
+    # This allows your Vite React app to access Flask endpoints safely.
+    CORS(
+        app,
+        resources={r"/api/*": {"origins": "http://localhost:5173"}},
+        supports_credentials=True,
+    )
 
     # --- Register Blueprints ---
     app.register_blueprint(user_bp, url_prefix="/api/users")
@@ -46,3 +53,9 @@ def create_app():
         return jsonify({"message": "🌱 Eco-Nudge Backend is running!"}), 200
 
     return app
+
+
+# ✅ Entry Point
+if __name__ == "__main__":
+    app = create_app()
+    app.run(port=5555, debug=True)

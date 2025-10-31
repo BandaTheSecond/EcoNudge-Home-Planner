@@ -2,6 +2,7 @@ import { useEffect, useMemo } from "react";
 import { useApp } from "../context/AppContext";
 import { getReports } from "../api/api";
 import ChartCard from "../components/ChartCard";
+import "../styles.css";
 
 function toDayLabel(iso) {
   const d = new Date(iso);

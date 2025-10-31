@@ -3,6 +3,7 @@ import { useApp } from "../context/AppContext";
 import { getNudges, getWeather } from "../api/api";
 import NudgeCard from "../components/NudgeCard";
 import ChartCard from "../components/ChartCard";
+import "../styles.css";
 
 export default function Dashboard() {
   const { nudges, setNudges, tasks } = useApp();

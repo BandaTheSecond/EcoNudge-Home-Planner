@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useApp } from "../context/AppContext";
 import { getTasks, addTask, toggleTask, deleteTask } from "../api/api";
+import "../styles.css";
 
 export default function Planner() {
   const { tasks, setTasks } = useApp();

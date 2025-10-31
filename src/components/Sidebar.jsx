@@ -1,33 +1,60 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
   return (
-    <aside className="w-64 bg-white shadow-md">
+    <aside className="sidebar">
       <div className="p-4">
-        <h4 className="text-lg font-semibold mb-4 text-gray-800">Menu</h4>
-        <ul className="space-y-2">
+        <h4 className="sidebar-title">Menu</h4>
+        <ul className="sidebar-menu">
           <li>
-            <NavLink to="/" end className={({ isActive }) => `block px-4 py-2 rounded-md hover:bg-green-100 ${isActive ? 'bg-green-200 text-green-800' : 'text-gray-700'}`}>
+            <NavLink
+              to="/"
+              end
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "active" : ""}`
+              }
+            >
               🏠 Dashboard
             </NavLink>
           </li>
           <li>
-            <NavLink to="/planner" className={({ isActive }) => `block px-4 py-2 rounded-md hover:bg-green-100 ${isActive ? 'bg-green-200 text-green-800' : 'text-gray-700'}`}>
+            <NavLink
+              to="/planner"
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "active" : ""}`
+              }
+            >
               🗓️ Planner
             </NavLink>
           </li>
           <li>
-            <NavLink to="/rewards" className={({ isActive }) => `block px-4 py-2 rounded-md hover:bg-green-100 ${isActive ? 'bg-green-200 text-green-800' : 'text-gray-700'}`}>
+            <NavLink
+              to="/rewards"
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "active" : ""}`
+              }
+            >
               🏅 Rewards
             </NavLink>
           </li>
           <li>
-            <NavLink to="/reports" className={({ isActive }) => `block px-4 py-2 rounded-md hover:bg-green-100 ${isActive ? 'bg-green-200 text-green-800' : 'text-gray-700'}`}>
+            <NavLink
+              to="/reports"
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "active" : ""}`
+              }
+            >
               📈 Reports
             </NavLink>
           </li>
           <li>
-            <NavLink to="/settings" className={({ isActive }) => `block px-4 py-2 rounded-md hover:bg-green-100 ${isActive ? 'bg-green-200 text-green-800' : 'text-gray-700'}`}>
+            <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                `sidebar-link ${isActive ? "active" : ""}`
+              }
+            >
               ⚙️ Settings
             </NavLink>
           </li>

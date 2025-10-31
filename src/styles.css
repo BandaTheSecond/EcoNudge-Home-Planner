@@ -1,166 +1,274 @@
-* {
+/* 🌿 EcoNudge Global Styles with Light & Dark Mode */
+
+/* ======== CSS Variables ======== */
+:root {
+    /* Light mode colors */
+    --bg-color: #ffffff;
+    --text-color: #2f2f2f;
+    --primary-color: #2e7d32;
+    --primary-hover: #1b5e20;
+    --card-bg: #f9f9f9;
+    --border-color: #e0e0e0;
+    --nav-bg: #2e7d32;
+    --nav-text: #ffffff;
+    --footer-bg: #f1f8e9;
+    --footer-text: #4f4f4f;
+  }
+  
+  /* Dark mode overrides */
+  [data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #e0e0e0;
+    --primary-color: #81c784;
+    --primary-hover: #66bb6a;
+    --card-bg: #1e1e1e;
+    --border-color: #333;
+    --nav-bg: #1b5e20;
+    --nav-text: #c8e6c9;
+    --footer-bg: #1b1b1b;
+    --footer-text: #aaaaaa;
+  }
+  
+  /* ======== Base Reset ======== */
+  * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-}
-
-body {
-    background-color: #f5f5f5;
-    color: #333;
-    line-height: 1.6;
-    padding: 20px;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.header {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.app-name {
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
-
-.welcome {
-    font-size: 18px;
-    color: #666;
-}
-
-.nudge-card {
-    background-color: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.nudge-title {
-    font-size: 14px;
-    color: #888;
-    margin-bottom: 10px;
-}
-
-.nudge-message {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 20px;
-}
-
-.button-group {
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+  }
+  
+  html, body {
+    height: 100%;
+    width: 100%;
+    font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    scroll-behavior: smooth;
+  }
+  
+  /* ======== Layout ======== */
+  .app-container {
     display: flex;
-    gap: 10px;
-}
-
-.button {
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  main {
     flex: 1;
-    padding: 12px;
-    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  /* ======== Navbar ======== */
+  .navbar {
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+  
+  .navbar h1 {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: var(--nav-text);
     font-weight: 500;
-    text-align: center;
-    cursor: pointer;
-    border: none;
-    font-size: 16px;
-}
-
-.accept-button {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.dismiss-button {
-    background-color: #f0f0f0;
-    color: #666;
-}
-
-.progress-section {
-    background-color: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.section-title {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-.co2-saved {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 10px;
-}
-
-.achievement {
-    background-color: #E8F5E9;
-    border-radius: 8px;
-    padding: 15px;
-    margin-top: 15px;
-    font-size: 14px;
-}
-
-.weekly-planner {
-    background-color: white;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.week-days {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.day {
-    text-align: center;
-}
-
-.day-name {
-    font-size: 12px;
-    color: #888;
-    margin-bottom: 8px;
-}
-
-.day-check {
-    width: 24px;
-    height: 24px;
+    transition: color 0.3s ease;
+  }
+  
+  .nav-links a:hover {
+    color: #c8e6c9;
+  }
+  
+  /* ======== Theme Toggle Button ======== */
+  .theme-toggle {
+    background-color: transparent;
+    border: 2px solid var(--nav-text);
+    color: var(--nav-text);
     border-radius: 50%;
-    margin: 0 auto;
+    width: 35px;
+    height: 35px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .theme-toggle:hover {
+    background-color: var(--nav-text);
+    color: var(--nav-bg);
+  }
+  
+  /* ======== Cards & Containers ======== */
+  .card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--border-color);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  }
+  
+  /* ======== Buttons ======== */
+  button, .btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+  
+  button:hover, .btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+  
+  /* ======== Forms ======== */
+  input, select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--primary-color);
+  }
+  
+  /* ======== Headings ======== */
+  h1, h2, h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+  }
+  
+  /* ======== Footer ======== */
+  .footer {
+    background-color: var(--footer-bg);
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9rem;
+    color: var(--footer-text);
+    border-top: 1px solid var(--border-color);
+  }
+  
+  /* ======== Responsive Design ======== */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+  
+    main {
+      padding: 15px;
+    }
+  
+    .card {
+      padding: 15px;
+    }
+  }
+  
+  /* ======== Utility Classes ======== */
+  .center {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-}
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+  
+  .mt-2 { margin-top: 10px; }
+  .mt-4 { margin-top: 20px; }
+  .mt-6 { margin-top: 30px; }
+  
+  .mb-2 { margin-bottom: 10px; }
+  .mb-4 { margin-bottom: 20px; }
+  .mb-6 { margin-bottom: 30px; }
 
-.checked {
-    background-color: #4CAF50;
-    color: white;
-}
-
-.unchecked {
-    background-color: #f0f0f0;
-    color: #ccc;
-}
-
-.rewards {
-    background-color: white;
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.reward-item {
-    background-color: #E3F2FD;
+  .flex {
+    display: flex;
+  }
+  
+  .flex-1 {
+    flex: 1;
+  }
+  
+  .p-6 {
+    padding: 24px;
+  }
+  
+  .min-h-screen {
+    min-height: 100vh;
+  }
+  
+  .bg-gray-100 {
+    background-color: var(--bg-color);
+  }
+  /* ======== Sidebar ======== */
+.sidebar {
+    width: 250px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .sidebar-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+  }
+  
+  .sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-link {
+    display: block;
+    padding: 10px 14px;
     border-radius: 8px;
-    padding: 15px;
-    font-size: 14px;
-    margin-top: 10px;
-}
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+  
+  .sidebar-link:hover {
+    background-color: rgba(46, 125, 50, 0.1);
+  }
+  
+  .sidebar-link.active {
+    background-color: var(--primary-color);
+    color: #fff;
+    font-weight: 600;
+  }
+  
+  
